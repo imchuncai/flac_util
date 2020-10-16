@@ -10,35 +10,6 @@ import (
 	"github.com/imchuncai/flac"
 )
 
-// func main() {
-// 	var steam, err = analyze("a.flac")
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	fmt.Println(steam.VorbisComments)
-// 	f, err := os.Create("temp.flac")
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	defer f.Close()
-
-// 	steam.VorbisComments.UserCommentList["ARTIST"] = "imchuncai"
-
-// 	err = steam.Repack(f)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// }
-
-// func main() {
-// 	fmt.Println("AA")
-// 	var steam, err = flac.Analyze("temp.flac")
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	fmt.Println(steam.VorbisComments)
-// }
-
 func main() {
 	var f, err = os.Create("./log.txt")
 	if err != nil {
@@ -73,7 +44,6 @@ func main() {
 		return steam.RepackFile(path)
 	})
 	if err != nil {
-		fmt.Println(err)
 		WriteLog(f, err.Error())
 	}
 	WriteLog(f, "Finish")
@@ -86,6 +56,8 @@ func WriteLog(f *os.File, msg string) {
 	}
 }
 
+// ParseFileName analyzes artist and title from file name.
+// File name must is formated as `artist - title`
 func ParseFileName(fileName string) (artist, title string, ok bool) {
 	var pieces = strings.Split(fileName, " - ")
 	if len(pieces) != 2 {
